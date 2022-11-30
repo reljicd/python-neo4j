@@ -1,0 +1,10 @@
+.idea
+.gitignore
+.git
+.dockerignore
+.tmp
+venv
+codeship.aes
+aws.env
+temp
+data

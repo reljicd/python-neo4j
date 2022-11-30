@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+
+  python-neo4j:
+    build:
+      context: ../../
+      dockerfile: python-neo4j/docker/Dockerfile
+    depends_on:
+      - neo4j
+    environment:
+      - GRAPH_DB_HOST=neo4j
+      - GRAPH_DB_PORT=7687
+      - GRAPH_DB=graph_db
+    container_name: python-neo4j
+    entrypoint: ["./scripts/wait_for_it.sh", "neo4j:7687", "-t", "0", "--", "python"]
+
+  neo4j:
+    image: neo4j
+    environment:
+      - NEO4J_AUTH=neo4j/s3cr3t
+    ports:
+      - 7474:7474
+      - 7687:7687
+
+
+networks:
+  default:
+    driver: bridge
